@@ -101,38 +101,39 @@ function [all_epochs, detected_SO] = detectSO(signal, fig, fs)
             plot(linspace(-1.5, 1.5, length(epoch)), epoch, 'Color', [0.6 0.6 0.6]);
         end
     end
-    % **6️ Affichage des oscillations lentes détectées**
-    if fig == 1
-        figure;
-        t = (1:length(signal)) / fs;
-        plot(t, signal_filt, 'k'); hold on;
-        scatter(oscillations_valides(:,1)/fs, oscillations_valides(:,2), 'bo', 'filled');
-        scatter(oscillations_valides(:,3)/fs, oscillations_valides(:,4), 'ro', 'filled');
-        title('Détection des Oscillations Lentes');
-        xlabel('Temps (s)');
-        ylabel('Amplitude (\muV)');
-        legend('Signal filtré', 'Pic négatif', 'Pic positif');
-        hold off;
-    end
+    
+    % % **6️ Affichage des oscillations lentes détectées**
+    % if fig == 1
+    %     figure;
+    %     t = (1:length(signal)) / fs;
+    %     plot(t, signal_filt, 'k'); hold on;
+    %     scatter(oscillations_valides(:,1)/fs, oscillations_valides(:,2), 'bo', 'filled');
+    %     scatter(oscillations_valides(:,3)/fs, oscillations_valides(:,4), 'ro', 'filled');
+    %     title('Détection des Oscillations Lentes');
+    %     xlabel('Temps (s)');
+    %     ylabel('Amplitude (\muV)');
+    %     legend('Signal filtré', 'Pic négatif', 'Pic positif');
+    %     hold off;
+    % end
 
     % **7️ Superposition des oscillations lentes détectées**
-    if fig == 1
-
-        % **8️ Tracé de la moyenne avec écart-type**
-        if ~isempty(all_epochs)
-            figure;
-            hold on;
-            mean_epoch = mean(all_epochs, 1);
-            std_epoch = std(all_epochs, 0, 1);
-            t = linspace(-1.5, 1.5, size(all_epochs, 2));
-            fill([t, fliplr(t)], [mean_epoch + std_epoch, fliplr(mean_epoch - std_epoch)], [1 0.8 0.8], 'FaceAlpha', 0.5, 'EdgeColor', 'none');
-            plot(t, mean_epoch, 'r', 'LineWidth', 4);
-            title('Oscillation Lente Moyenne avec Écart-Type');
-            xlabel('Temps (s)');
-            ylabel('Amplitude (\muV)');
-            hold off;
-        end
-    end
+    % if fig == 1
+    % 
+    %     % **8️ Tracé de la moyenne avec écart-type**
+    %     if ~isempty(all_epochs)
+    %         figure;
+    %         hold on;
+    %         mean_epoch = mean(all_epochs, 1);
+    %         std_epoch = std(all_epochs, 0, 1);
+    %         t = linspace(-1.5, 1.5, size(all_epochs, 2));
+    %         fill([t, fliplr(t)], [mean_epoch + std_epoch, fliplr(mean_epoch - std_epoch)], [1 0.8 0.8], 'FaceAlpha', 0.5, 'EdgeColor', 'none');
+    %         plot(t, mean_epoch, 'r', 'LineWidth', 4);
+    %         title('Oscillation Lente Moyenne avec Écart-Type');
+    %         xlabel('Temps (s)');
+    %         ylabel('Amplitude (\muV)');
+    %         hold off;
+    %     end
+    % end
 
     detected_SO = oscillations_valides;
 end

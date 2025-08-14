@@ -26,7 +26,7 @@ function Main(edf_filename)
     % chevauchant, entièrement ou partiellement, des oscillations lentes
    
     %% fichier à étudier
-    edf_filename = '/Users/theotimroger/Desktop/MFE - epilespsy/Data_sleep_Theotim/eeg_meg_2636.edf'; %indiquer ici le chemin du fichier à traiter
+    %edf_filename = '/Users/theotimroger/Desktop/MFE - epilespsy/Data_sleep_Theotim/eeg_meg_2636.edf'; %indiquer ici le chemin du fichier à traiter
 
     %% Choix des électrodes
     % Le signal final utilisé pour l'étude sera la différence entre celui
@@ -43,7 +43,7 @@ function Main(edf_filename)
     time_end = inf; %instant de fin du traitement
     
     %% Méthode de détection des oscillations lentes
-    method = 1; % 1: detectSO, 2: detectSO2
+    method = 2; % 1: detectSO, 2: detectSO2
 
     %% Outputs visuels
     fig_SO = 1; %0: pas d'affichage des oscillations lentes détectées sur le signal d'origine, 1: affichage
@@ -51,7 +51,7 @@ function Main(edf_filename)
     fig_PAC = 1; %0: pas d'affichage de l'histogramme de l'amplitude des spindles en fonction de la phase des oscillations lentes, 1: affichage
     
     %% Sauvegarde des résultats
-    save_SO = 0; %0: pas de sauvegarde des données sur les oscillations lentes (instants et amplitudes) dans un fichier .mat, 1: sauvegarde
+    save_SO = 1; %0: pas de sauvegarde des données sur les oscillations lentes (instants et amplitudes) dans un fichier .mat, 1: sauvegarde
     save_spindles = 1; %0: pas de sauvegarde des données sur les spindles (instants et amplitudes) dans un fichier .mat , 1: sauvegarde
     save_fig_PAC = 0; %0: pas de sauvegarde de la figure du PAC, 1: sauvegarde
     

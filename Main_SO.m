@@ -23,9 +23,10 @@ function [Detected_SO_list] = Main_SO(edf_filename, ElectrodeLabel, ElectrodeRef
     [~, edf_name, ~] = fileparts(edf_filename);
     inst1 = num2str(time_start);
     inst2 = num2str(time_end);
+    met = num2str(method);
 
     %nom du fichier .mat pour la sauvegarde des données
-    mat_filename = ['DetectedSO_' edf_name '_' inst1 '_' inst2 '_' ElectrodeLabel '.mat'];
+    mat_filename = ['DetectedSO_' edf_name '_' inst1 '_' inst2 '_' ElectrodeLabel '_' met '.mat'];
 
     % Vérifie si un fichier .mat avec les SO détectées existe déjà
     if isfile(mat_filename)
@@ -90,35 +91,35 @@ function [Detected_SO_list] = Main_SO(edf_filename, ElectrodeLabel, ElectrodeRef
         disp('Aucune oscillation lente détectée.');
         return;
     end
-    if fig == 1
-        % Génération de l'axe temporel du signal brut (non filtré)
-        t = (0:length(raw_data)-1) / Fs_original;
-    
-        figure;
-        hold on;
-
-        %filtrage LP à 35 Hz pour un affichage du résultat plus lisible
-        [b, a] = butter(4, 35/(Fs_original/2), 'low');
-        raw_data_lp35 = filtfilt(b, a, double(raw_data));
-        
-        plot(t, raw_data_lp35, 'b'); % Signal EEG filtré en bleu
-            
-        % Colorier les oscillations lentes détectées en rouge
-        for i = 1:size(Detected_SO_list, 1)
-            start_idx = Detected_SO_list(i, 5);
-            stop_idx = Detected_SO_list(i, 6);
-            plot(t(start_idx:stop_idx), raw_data_lp35(start_idx:stop_idx), 'r', 'LineWidth', 1.5);
-        end
-    
-        % Ajouter les légendes et labels
-        title(['EEG' ElectrodeLabel '-' ElectrodeReference 'avec détection des oscillations lentes']);
-        xlabel('Temps (s)');
-        ylabel('Amplitude EEG (µV)');
-        legend({'EEG LP 35 Hz', 'Oscillations lentes détectées'}, 'Location', 'Best');
-    
-        xlim([t(1), t(end)]); % Étendre l'axe x sur toute la durée de l'enregistrement
-        grid on;
-    
-        hold off;
+    % if fig == 1
+    %     % Génération de l'axe temporel du signal brut (non filtré)
+    %     t = (0:length(raw_data)-1) / Fs_original;
+    % 
+    %     figure;
+    %     hold on;
+    % 
+    %     %filtrage LP à 35 Hz pour un affichage du résultat plus lisible
+    %     [b, a] = butter(4, 35/(Fs_original/2), 'low');
+    %     raw_data_lp35 = filtfilt(b, a, double(raw_data));
+    % 
+    %     plot(t, raw_data_lp35, 'b'); % Signal EEG filtré en bleu
+    % 
+    %     % Colorier les oscillations lentes détectées en rouge
+    %     for i = 1:size(Detected_SO_list, 1)
+    %         start_idx = Detected_SO_list(i, 5);
+    %         stop_idx = Detected_SO_list(i, 6);
+    %         plot(t(start_idx:stop_idx), raw_data_lp35(start_idx:stop_idx), 'r', 'LineWidth', 1.5);
+    %     end
+    % 
+    %     % Ajouter les légendes et labels
+    %     title(['EEG' ElectrodeLabel '-' ElectrodeReference 'avec détection des oscillations lentes']);
+    %     xlabel('Temps (s)');
+    %     ylabel('Amplitude EEG (µV)');
+    %     legend({'EEG LP 35 Hz', 'Oscillations lentes détectées'}, 'Location', 'Best');
+    % 
+    %     xlim([t(1), t(end)]); % Étendre l'axe x sur toute la durée de l'enregistrement
+    %     grid on;
+    % 
+    %     hold off;
     end
 end

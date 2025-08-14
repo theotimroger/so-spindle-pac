@@ -36,15 +36,15 @@ function [f_center, P_integrated, f_vec] = detect_ol_by_spectral_integration(sig
 
     % Fréquence maximale de puissance intégrée
     [~, idx_max] = max(P_integrated);
-    f_center = f_vec(idx_max);
+    f_center = f_vec(idx_max)
 
     % Affichage
-    figure;
-    plot(f_vec, P_integrated, 'k', 'LineWidth', 2); hold on;
-    xline(f_center, 'r--', 'LineWidth', 1.5);
-    title(sprintf('Puissance intégrée autour de chaque fréquence (%.2f Hz)', f_center));
-    xlabel('Fréquence centrale (Hz)');
-    ylabel('Puissance intégrée (uV^2)');
-    grid on;
+    % figure;
+    % plot(f_vec, P_integrated, 'k', 'LineWidth', 2); hold on;
+    % xline(f_center, 'r--', 'LineWidth', 1.5);
+    % title(sprintf('Puissance intégrée autour de chaque fréquence (%.2f Hz)', f_center));
+    % xlabel('Fréquence centrale (Hz)');
+    % ylabel('Puissance intégrée (uV^2)');
+    % grid on;
 
 end
