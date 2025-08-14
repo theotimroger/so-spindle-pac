@@ -13,7 +13,6 @@ function Compute_MI(edf_filename, ElectrodeLabel,ElectrodeReference, time_start,
     % Étape 1 : Détection des SO et Spindles
     % ============================
     Detected_SO_list = Main_SO(edf_filename, ElectrodeLabel, ElectrodeReference, time_start, time_end, method, fig_SO, fs_new, save_SO);
-    %SpindleInfo = Main_Spindles(edf_filename, time_start, time_end, ElectrodeLabel, ElectrodeReference,fig_spindles, save_spindles);     % struct avec .start_time, .end_time, .amplitude_envelope
     % Nom du fichier .mat pour sauvegarder les spindles
     spindle_mat_file = ['StoredSpindles_' edf_name '.mat'];
     
@@ -23,7 +22,7 @@ function Compute_MI(edf_filename, ElectrodeLabel,ElectrodeReference, time_start,
         fprintf('StoredSpindles chargés depuis %s\n', spindle_mat_file);
     else
         % Sinon lancer la détection
-        [~, StoredSpindles] = Main_Sp(fname, time_start, time_end, ElectrodeReference, fig_spindles);
+        [~, StoredSpindles] = Main_Spindles(fname, time_start, time_end, ElectrodeReference, fig_spindles);
         
         % Sauvegarder
         if save_spindles
