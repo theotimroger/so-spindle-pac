@@ -1,4 +1,4 @@
-function Main(edf_filename)
+function Main()
     % ------------------------------
     % Ce programme a été conçu dans le cadre d'une thèse de master en
     % ingénierie biomédicale à L'Ecole Polytechnique de Bruxelles (ULB).
@@ -26,7 +26,7 @@ function Main(edf_filename)
     % chevauchant, entièrement ou partiellement, des oscillations lentes
    
     %% fichier à étudier
-    %edf_filename = '/Users/theotimroger/Desktop/MFE - epilespsy/Data_sleep_Theotim/eeg_meg_2636.edf'; %indiquer ici le chemin du fichier à traiter
+    edf_filename = '/Users/theotimroger/Desktop/MFE - epilespsy/Data_sleep_Theotim/eeg_meg_2636.edf'; %indiquer ici le chemin du fichier à traiter
 
     %% Choix des électrodes
     % Le signal final utilisé pour l'étude sera la différence entre celui
