@@ -1,4 +1,4 @@
-function [FeatureChan, StoredSpindles] = Main_Sp(fname,StartTime,StopTime,ElectrodeReference, fig_spindles)
+function [FeatureChan, StoredSpindles] = Main_Spindles(fname,StartTime,StopTime,ElectrodeReference, fig_spindles)
 tic
 clear PE_RMSLevel PE_MainFreq Detected_spindles Detected_spindles_array FeatureChan
 %profile on;
@@ -10,7 +10,7 @@ premiere_electrode = info.SignalLabels(1);
 % **********
 
 % Database - pointing at the folder where the database is placed
-%DBPath = '/Users/theotimroger/Desktop/MFE - epilespsy/data AMD/wetransfer_algo-sleep-spindles_2025-06-23_0957/Référentiel/';	
+%DBPath = '/Users/theotimroger/Desktop/MFE - epilespsy/data AMD/wetransfer_algo-sleep-spindles_2025-06-23_0957/RÃ©fÃ©rentiel/';	
 %[DatabaseInfoNum, DatabaseInfoTxt] = xlsread([DBPath 'Global spindle database 2.xls']); 
 
 
@@ -37,7 +37,7 @@ Parameters.Min_RMS_Threashold = 0; % Minimum amplitude of the sleep spindles (ho
 Parameters.Min_mean_RMS_for_channel = 5;
 Parameters.SpinFreqPH = 10; % Low cutoff frequency of sleep spindles
 Parameters.SpinFreqPB = 15; % High cutoff frequency of sleep spindles
-Parameters.MinElectForDet = 1; % Sleep spindle detected if at least on x derivations 
+Parameters.MinElectForDet = 1; % Sleep spindle detected if at least on x derivationsÂ 
 Parameters.FusionMinTime = Parameters.Fs/2;
 Parameters.EvenMinTime = Parameters.Fs/2;
 Parameters.RMSHalfWindow = round(Parameters.Fs/4);
@@ -56,12 +56,12 @@ ArtElectrodes = {'lio','rso','emg-g','emg-d','ecg'};
 [ElectrodeLabel] = WhatElectrode(fname,ArtElectrodes);
 
 % Preallocation
-nrElectrodeLeft = ElectrodeLabel(1,:);  %sélectionne la première electrode
-nrElectrodeLeft = deblank(nrElectrodeLeft); %enlève les espaces vides
+nrElectrodeLeft = ElectrodeLabel(1,:);  %sÃ©lectionne la premiÃ¨re electrode
+nrElectrodeLeft = deblank(nrElectrodeLeft); %enlÃ¨ve les espaces vides
 raw_data = ReadData(StartTime,StopTime,nrElectrodeLeft,ElectrodeReference,fname); 
 
 nElectrodes = size(ElectrodeLabel, 1);
-signalLength = length(raw_data);  % obtenu juste après avoir lu la première électrode
+signalLength = length(raw_data);  % obtenu juste aprÃ¨s avoir lu la premiÃ¨re Ã©lectrode
 raw_data_Chan = zeros(nElectrodes, signalLength);
 Detected_spindles = zeros(nElectrodes, signalLength);
 
@@ -74,7 +74,7 @@ All_Freq_spindles = [];
 All_Dur_spindles = [];
 
 for NumElectrode = 1:length(ElectrodeLabel(:,1)) % loop on all electrodes
-    FeatureChan(NumElectrode).Label = nrElectrodeLeft;          % Stocke le nom de l'électrode
+    FeatureChan(NumElectrode).Label = nrElectrodeLeft;          % Stocke le nom de l'Ã©lectrode
     FeatureChan(NumElectrode).Detected_spindles = zeros(1,length(raw_data)); 
     ProcPerformed = round(100*NumElectrode/length(ElectrodeLabel(:,1))); 
     fprintf('Detection in progress (perc.): %d .\n', ProcPerformed); % display the detection progress 
@@ -115,11 +115,11 @@ for NumElectrode = 1:length(ElectrodeLabel(:,1)) % loop on all electrodes
             % Attribution
             if CurrentWindow<length(raw_data)-Parameters.FeatureProcessingStep
                 if PositiveEvent == 1
-                    PositiveEventCount = PositiveEventCount + 1;%nombre de fenêtre ou spindle
-                    PE_RMSLevel(PositiveEventCount) = RMSLevel(CurrentWindow); %RMS centré en la fenêtre de détection
-                    PE_MainFreq(PositiveEventCount) = MainFreq(CurrentWindow);%MainFreq centré en fenêtre de détection
-                    PE_Index(PositiveEventCount) = CurrentWindow; %Contient les indices des fenêtres où les fuseaux ont été détectés.
-                    for fill = 1:Parameters.FeatureProcessingStep %Note les FeaturesProcessingStep points échantillons suivants commme étant spindle
+                    PositiveEventCount = PositiveEventCount + 1;%nombre de fenÃªtre ou spindle
+                    PE_RMSLevel(PositiveEventCount) = RMSLevel(CurrentWindow); %RMS centrÃ© en la fenÃªtre de dÃ©tection
+                    PE_MainFreq(PositiveEventCount) = MainFreq(CurrentWindow);%MainFreq centrÃ© en fenÃªtre de dÃ©tection
+                    PE_Index(PositiveEventCount) = CurrentWindow; %Contient les indices des fenÃªtres oÃ¹ les fuseaux ont Ã©tÃ© dÃ©tectÃ©s.
+                    for fill = 1:Parameters.FeatureProcessingStep %Note les FeaturesProcessingStep points Ã©chantillons suivants commme Ã©tant spindle
                         Detected_spindles(NumElectrode,CurrentWindow+fill-1) = 1;
                         FeatureChan(NumElectrode).Detected_spindles(CurrentWindow+fill-1) = 1;
                     end
@@ -140,7 +140,7 @@ for NumElectrode = 1:length(ElectrodeLabel(:,1)) % loop on all electrodes
 end
 % Detection stat
 [Detected_spindles_list,~,Detected_spindles_array] = SpindlesList(Detected_spindles,Parameters.MinElectForDet,Parameters.EvenMinTime);
-fprintf('Nombre de spindles détectés : %d\n', size(Detected_spindles_list, 2));
+fprintf('Nombre de spindles dÃ©tectÃ©s : %d\n', size(Detected_spindles_list, 2));
 
 
 % % Annotations
@@ -160,7 +160,7 @@ if strcmp(PlotData,'Yes')
     close all; fclose all; 
 end
 
-% Création de SpindleInfo basé sur SpindlesListOneChan
+% CrÃ©ation de SpindleInfo basÃ© sur SpindlesListOneChan
 SpindleInfo = struct('start_time', {}, 'end_time', {}, 'amplitude_envelope', {}, 'channel', {});
 
 fs = Parameters.Fs;
@@ -169,7 +169,7 @@ for ch = 1:length(FeatureChan)
     label = FeatureChan(ch).Label;
     raw = raw_data_Chan(ch, :);
     
-    % Spindles détectés pour ce canal
+    % Spindles dÃ©tectÃ©s pour ce canal
     if isfield(SingleChanSpindleList(ch), 'Detected_spindles_list')
         spindles = SingleChanSpindleList(ch).Detected_spindles_list;
     else
@@ -201,7 +201,7 @@ end
 
 
 temps = toc;
-fprintf('Temps d''exécution : %.3f secondes\n', temps);
+fprintf('Temps d''exÃ©cution : %.3f secondes\n', temps);
 
 close all;
 save('Global');
