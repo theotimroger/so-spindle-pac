@@ -5,7 +5,7 @@ function [Detected_SO_list] = Main_SO(edf_filename, ElectrodeLabel, ElectrodeRef
     %ElectrodeLabel: nom de l'électrode pour l'analyse
     %time_start : instant (en secondes) du début de l'analyse
     %time_end : instant (en secondes) de la fin de l'analyse
-    %method: 1=detectSO, 2=detectSO2
+    %method: 1=detectSO_Molle, 2=detectSO_Massimini
     %fig: affichage des oscillations lentes détectées sur la période
     %choisie
     %fs_new: fréquence de rééchantillonnage
@@ -60,9 +60,9 @@ function [Detected_SO_list] = Main_SO(edf_filename, ElectrodeLabel, ElectrodeRef
             
             % Détection des oscillations lentes
             if method==1
-                [~, detected_SO] = detectSO(signal_filtre, 0, fs_new); 
+                [~, detected_SO] = detectSO_Molle(signal_filtre, 0, fs_new); 
             elseif method==2
-                [~, detected_SO] = detectSO2(signal_filtre, 0, fs_new); 
+                [~, detected_SO] = detectSO_Massimini(signal_filtre, 0, fs_new); 
             end
 
             % detected_SO est une matrice Nx6 contenant les informations sur les oscillations lentes
@@ -121,5 +121,5 @@ function [Detected_SO_list] = Main_SO(edf_filename, ElectrodeLabel, ElectrodeRef
     %     grid on;
     % 
     %     hold off;
-    end
+    
 end
