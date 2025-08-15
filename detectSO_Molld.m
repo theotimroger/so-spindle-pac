@@ -1,4 +1,4 @@
-function [all_epochs, detected_SO] = detectSO(signal, fig, fs)
+function [all_epochs, detected_SO] = detectSO_Molle(signal, fig, fs)
     % Implémentation de l'algorithme décrit par Mölle et al. (2009)
     
     % Détection des oscillations lentes dans un signal EEG filtré
