@@ -1,4 +1,6 @@
-function [all_epochs, detected_SO] = detectSO2(signal, fig, fs)
+function [all_epochs, detected_SO] = detectSO_Massimini(signal, fig, fs)
+    % Implémentation de l'algorithme décrit par Massimini et al. (2004)
+
     % Détection des oscillations lentes (0.1 - 4 Hz) sur un signal EEG unique
     % - signal : vecteur de signal EEG (1D)
     % - fig :  0 -> ne pas afficher les figures, 1 -> afficher
@@ -36,7 +38,7 @@ function [all_epochs, detected_SO] = detectSO2(signal, fig, fs)
     for i = 1:length(zero_crossings) - 2
         idx1 = zero_crossings(i);
         idx2 = zero_crossings(i+1);
-        idx3 = zero_crossings(i+2); %permet d'avoir le passage à zéro dans le même sens que idx1 (permet de faire correspondre les intervalle avec l'autre méthode de détection (detectSO) afin de les comparer
+        idx3 = zero_crossings(i+2); %permet d'avoir le passage à zéro dans le même sens que idx1 (permet de faire correspondre les intervalle avec l'autre méthode de détection (detectSO_Molle) afin de les comparer
 
         % Vérifier l'intervalle temporel (0.3s - 1.0s)
         time_interval = (idx2 - idx1) / fs;
