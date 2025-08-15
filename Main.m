@@ -43,7 +43,7 @@ function Main()
     time_end = inf; %instant de fin du traitement
     
     %% Méthode de détection des oscillations lentes
-    method = 2; % 1: detectSO, 2: detectSO2
+    method = 2; % 1: detectSO_Molle, 2: detectSO_Massimini
 
     %% Outputs visuels
     fig_SO = 1; %0: pas d'affichage des oscillations lentes détectées sur le signal d'origine, 1: affichage
