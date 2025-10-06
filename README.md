@@ -110,4 +110,4 @@ Reproducibility
 Troubleshooting
 •	edfinfo not found: use the provided Readedf.m/edfhdr.m paths or upgrade MATLAB/ensure Signal Processing Toolbox is installed.
 •	No detections: relax thresholds inside the detector(s), check filtering band, and confirm your ElectrodeLabels exist in the EDF (use WhatElectrode.m).
-<img width="451" height="677" alt="image" src="https://github.com/user-attachments/assets/aa0ecaa4-584a-4aa7-919e-d379b18874e7" />
+
